@@ -11,7 +11,7 @@ function extraerPalabras() {
         return;
     }
 
-    const palabras = datosEntrada.split(/\s+/);
+    const lineas = datosEntrada.split('\n');
 
     const tabla = document.createElement("table");
     const thead = document.createElement("thead");
@@ -24,12 +24,20 @@ function extraerPalabras() {
 
     const tbody = document.createElement("tbody");
 
-    palabras.forEach(palabra => {
+   
+    lineas.forEach(linea => {
+        const campos = linea.split('\t');
+
         const fila = document.createElement("tr");
-        const celda = document.createElement("td");
-        celda.textContent = `$lang["${palabra}"]`;
-        celda.classList.add("tabla-celda");
-        fila.appendChild(celda);
+
+        campos.forEach((campo, index) => {
+            const celda = document.createElement("td");
+            console.log(celda)
+            celda.textContent = index === 0 ? `$lang["${campo}"]` : campo;
+            celda.classList.add("tabla-celda");
+            fila.appendChild(celda);
+        });
+
         tbody.appendChild(fila);
     });
 
